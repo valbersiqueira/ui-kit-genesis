@@ -2,5 +2,174 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "newProjectRoot": "projects",
-  "projects": {}
+  "projects": {
+    "ui-kit-genesis": {
+      "projectType": "library",
+      "root": "projects/ui-kit-genesis",
+      "sourceRoot": "projects/ui-kit-genesis/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/ui-kit-genesis/tsconfig.lib.json",
+            "project": "projects/ui-kit-genesis/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ui-kit-genesis/src/test.ts",
+            "tsConfig": "projects/ui-kit-genesis/tsconfig.spec.json",
+            "karmaConfig": "projects/ui-kit-genesis/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ui-kit-genesis/tsconfig.lib.json",
+              "projects/ui-kit-genesis/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "ui-kit-genesis-test": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/ui-kit-genesis-test",
+      "sourceRoot": "projects/ui-kit-genesis-test/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/ui-kit-genesis-test",
+            "index": "projects/ui-kit-genesis-test/src/index.html",
+            "main": "projects/ui-kit-genesis-test/src/main.ts",
+            "polyfills": "projects/ui-kit-genesis-test/src/polyfills.ts",
+            "tsConfig": "projects/ui-kit-genesis-test/tsconfig.app.json",
+            "aot": false,
+            "assets": [
+              "projects/ui-kit-genesis-test/src/favicon.ico",
+              "projects/ui-kit-genesis-test/src/assets"
+            ],
+            "styles": [
+              "projects/ui-kit-genesis-test/src/styles.scss",
+              "projects/ui-kit-genesis/src/assets/bootstrap-import.scss",
+              "projects/ui-kit-genesis/src/assets/material-import.scss"
+            ],
+            "scripts": [
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/bootstrap/dist/js/bootstrap.min.js"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/ui-kit-genesis-test/src/environments/environment.ts",
+                  "with": "projects/ui-kit-genesis-test/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "ui-kit-genesis-test:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "ui-kit-genesis-test:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "ui-kit-genesis-test:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ui-kit-genesis-test/src/test.ts",
+            "polyfills": "projects/ui-kit-genesis-test/src/polyfills.ts",
+            "tsConfig": "projects/ui-kit-genesis-test/tsconfig.spec.json",
+            "karmaConfig": "projects/ui-kit-genesis-test/karma.conf.js",
+            "assets": [
+              "projects/ui-kit-genesis-test/src/favicon.ico",
+              "projects/ui-kit-genesis-test/src/assets",
+              "projects/ui-kit-genesis/src/assets"
+            ],
+            "styles": [
+              "projects/ui-kit-genesis-test/src/styles.scss",
+              "projects/ui-kit-genesis/src/assets/style/bootstrap-import.scss",
+              "projects/ui-kit-genesis/src/assets/style/material-import.scss"
+            ],
+            "scripts": [
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/bootstrap/dist/js/bootstrap.min.js"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ui-kit-genesis-test/tsconfig.app.json",
+              "projects/ui-kit-genesis-test/tsconfig.spec.json",
+              "projects/ui-kit-genesis-test/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/ui-kit-genesis-test/e2e/protractor.conf.js",
+            "devServerTarget": "ui-kit-genesis-test:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "ui-kit-genesis-test:serve:production"
+            }
+          }
+        }
+      }
+    }},
+  "defaultProject": "ui-kit-genesis"
 }

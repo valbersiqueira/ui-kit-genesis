@@ -17,7 +17,16 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "ui-kit-genesis": [
+        "dist/ui-kit-genesis"
+      ],
+      "ui-kit-genesis/*": [
+        "dist/ui-kit-genesis/*"
+      ],
+      "@function/*": ["projects/ui-kit-genesis/lib/function/*"]
+    }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
