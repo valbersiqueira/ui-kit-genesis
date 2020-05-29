@@ -2,8 +2,6 @@
  * Public API Surface of ui-kit-genesis
  */
 
-export * from './lib/ui-kit-genesis.service';
-export * from './lib/ui-kit-genesis.component';
 export * from './lib/ui-kit-genesis.module';
 export * from './lib/table-list-genesis/table-list-genesis.component';
 export * from './lib/function/safe-call';
